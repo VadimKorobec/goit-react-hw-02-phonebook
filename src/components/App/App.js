@@ -1,10 +1,11 @@
-import { ContactsList } from 'components/ContactsList/ContactList';
-import { Filter } from 'components/Filter/Filter';
-import { Component } from 'react';
-import { ContactForm } from '../ContactsForm/ContactForm';
+import React from 'react';
 import { nanoid } from 'nanoid';
+import { ContactForm } from 'components/ContactForm/ContactForm';
+import { Filter } from 'components/Filter/Filter';
+import { ContactList } from 'components/ContactList/ContactList';
+import { Container, Section, TitleH1, TitleH2 } from './App.styled';
 
-export class App extends Component {
+export class App extends React.Component {
   state = {
     contacts: [
       { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
@@ -15,6 +16,7 @@ export class App extends Component {
     filter: '',
   };
 
+  // Добавляет контакт в список
   addContact = ({ name, number }) => {
     const normalizedFind = name.toLowerCase();
     const findName = this.state.contacts.find(
@@ -36,6 +38,7 @@ export class App extends Component {
     }));
   };
 
+  // Возвращает результат фильтра
   getContacts = () => {
     const { filter, contacts } = this.state;
     const normalizedFilter = filter.toLowerCase();
@@ -44,6 +47,7 @@ export class App extends Component {
     );
   };
 
+  // Удаляет контакт из списка
   deleteContact = contactId => {
     this.setState(prevState => ({
       contacts: prevState.contacts.filter(contact => contact.id !== contactId),
@@ -60,16 +64,20 @@ export class App extends Component {
     const visibleContacts = this.getContacts();
 
     return (
-      <div>
-        <h1>Phonebook</h1>
-        <ContactForm onSubmit={this.addContact} />
-        <h2>Contacts</h2>
-        <Filter value={filter} onChange={this.handleFilter} />
-        <ContactsList
-          contacts={visibleContacts}
-          onDelete={this.deleteContact}
-        />
-      </div>
+      <Container>
+        <Section title="Phonebook">
+          <TitleH1>Phonebook</TitleH1>
+          <ContactForm onSubmit={this.addContact} />
+        </Section>
+        <Section title="Contacts">
+          <TitleH2>Contacts</TitleH2>
+          <Filter value={filter} onChange={this.handleFilter} />
+          <ContactList
+            contacts={visibleContacts}
+            onDeleteContact={this.deleteContact}
+          />
+        </Section>
+      </Container>
     );
   }
 }
