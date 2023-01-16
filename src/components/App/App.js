@@ -1,4 +1,4 @@
-import { ContactList } from 'components/ContactList/ContactList';
+import { ContactsList } from 'components/ContactsList/ContactList';
 import { Filter } from 'components/Filter/Filter';
 import { Component } from 'react';
 import { ContactForm } from '../ContactsForm/ContactForm';
@@ -43,7 +43,7 @@ export class App extends Component {
         <ContactForm onSubmit={this.addContact} />
         <h2>Contacts</h2>
         <Filter />
-        <ContactList
+        <ContactsList
           contacts={this.state.contacts}
           onDelete={this.deleteContact}
         />
