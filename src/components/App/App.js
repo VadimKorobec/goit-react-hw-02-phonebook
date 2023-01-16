@@ -13,13 +13,7 @@ export class App extends Component {
       { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
     ],
     filter: '',
-    name: '',
-    numbers: '',
   };
-
-  // formSubmitHandler = data => {
-  //   console.log(data);
-  // };
 
   addContact = ({ name, number }) => {
     const normalizedFind = name.toLowerCase();
@@ -42,13 +36,6 @@ export class App extends Component {
     }));
   };
 
-  findContact = () => {
-    const { filter, contacts } = this.state;
-    return contacts.filter(contact =>
-      contact.name.toLowerCase().includes(filter.toLowerCase())
-    );
-  };
-
   getContacts = () => {
     const { filter, contacts } = this.state;
     const normalizedFilter = filter.toLowerCase();
@@ -69,14 +56,17 @@ export class App extends Component {
   };
 
   render() {
+    const { filter } = this.state;
+    const visibleContacts = this.getContacts();
+
     return (
       <div>
         <h1>Phonebook</h1>
         <ContactForm onSubmit={this.addContact} />
         <h2>Contacts</h2>
-        <Filter />
+        <Filter value={filter} onChange={this.handleFilter} />
         <ContactsList
-          contacts={this.state.contacts}
+          contacts={visibleContacts}
           onDelete={this.deleteContact}
         />
       </div>
