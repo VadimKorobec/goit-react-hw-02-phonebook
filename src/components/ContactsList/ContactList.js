@@ -5,11 +5,11 @@ export const ContactsList = ({ contacts, onDelete }) => {
   return (
     <ul>
       {contacts.map(({ id, name, number }) => (
-        <li key={id}>
+        <li>
           <ContactItem
+            key={id}
             name={name}
             number={number}
-            contact={contacts}
             onDelete={onDelete}
           />
         </li>
@@ -21,8 +21,10 @@ export const ContactsList = ({ contacts, onDelete }) => {
 ContactsList.propTypes = {
   contacts: PropTypes.arrayOf(
     PropTypes.shape({
-      idx: PropTypes.string.isRequired,
-    })
-  ),
+      id: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+      number: PropTypes.string.isRequired,
+    }).isRequired
+  ).isRequired,
   onDelete: PropTypes.func.isRequired,
 };
