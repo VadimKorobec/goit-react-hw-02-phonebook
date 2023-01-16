@@ -1,7 +1,8 @@
 import PropTypes from 'prop-types';
-import { Component } from 'react';
+import React from 'react';
+import { Form, Label, Input, Button } from './ContactForm.styled';
 
-export class ContactForm extends Component {
+export class ContactForm extends React.Component {
   state = {
     name: '',
     number: '',
@@ -12,8 +13,8 @@ export class ContactForm extends Component {
     this.setState({ [name]: value });
   };
 
-  handleSubmit = event => {
-    event.preventDefault();
+  handleSubmit = e => {
+    e.preventDefault();
     this.props.onSubmit(this.state);
     this.reset();
   };
@@ -30,10 +31,10 @@ export class ContactForm extends Component {
     const { name, number } = this.state;
 
     return (
-      <form onSubmit={this.handleSubmit}>
-        <label htmlFor={this.nameId}>
+      <Form onSubmit={this.handleSubmit}>
+        <Label htmlFor={this.nameId}>
           Name
-          <input
+          <Input
             type="text"
             name="name"
             value={name}
@@ -42,11 +43,11 @@ export class ContactForm extends Component {
             title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
             required
           />
-        </label>
+        </Label>
 
-        <label htmlFor={this.numberId}>
+        <Label htmlFor={this.numberId}>
           Number
-          <input
+          <Input
             type="tel"
             name="number"
             value={number}
@@ -55,10 +56,10 @@ export class ContactForm extends Component {
             title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
             required
           />
-        </label>
+        </Label>
 
-        <button type="submit">Add contact</button>
-      </form>
+        <Button type="submit">Add contact</Button>
+      </Form>
     );
   }
 }
